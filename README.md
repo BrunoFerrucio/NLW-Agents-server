@@ -1,0 +1,1 @@
+# "type": "module" -> Permite que usar import/export no lugar de require/module.exports
