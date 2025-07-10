@@ -1,0 +1,17 @@
+# Variables
+@baseUrl = http://localhost:3333
+
+# Health Check
+GET {{baseUrl}}/health
+
+# Get all rooms
+GET {{baseUrl}}/rooms
+
+# Post all rooms
+POST {{baseUrl}}/rooms
+Content-Type: application/json
+
+{
+  "name": "Sala de teste",
+  "description": "Essa é uma sala de teste"
+}
