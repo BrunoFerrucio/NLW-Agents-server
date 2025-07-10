@@ -1,13 +1,13 @@
-# Variables
+### Variables
 @baseUrl = http://localhost:3333
 
-# Health Check
+### Health Check
 GET {{baseUrl}}/health
 
-# Get all rooms
+### Get all rooms
 GET {{baseUrl}}/rooms
 
-# Post all rooms
+### Create a new room
 POST {{baseUrl}}/rooms
 Content-Type: application/json
 
