@@ -1,31 +1,37 @@
-import type { FastifyPluginCallbackZod } from "fastify-type-provider-zod"
-import { z } from 'zod';
-import { db } from "../../db/connection.ts"
-import { schema } from "../../db/schema/index.ts"
+import type { FastifyPluginCallbackZod } from 'fastify-type-provider-zod'
+import { z } from 'zod/v4'
+import { db } from '../../db/connection.ts'
+import { schema } from '../../db/schema/index.ts'
 
 export const createRoomRoute: FastifyPluginCallbackZod = (app) => {
-  app.post('/rooms', {
-    schema: {
-      body: z.object({
-        name: z.string().min(1),
-        description: z.string().optional(),
-      })
+  app.post(
+    '/rooms',
+    {
+      schema: {
+        body: z.object({
+          name: z.string().min(1),
+          description: z.string().optional(),
+        }),
+      },
     },
-  },
-  async (request, reply) => {
-    const { name, description } = request.body as { name: string; description?: string };
+    async (request, reply) => {
+      const { name, description } = request.body
 
-    // Por padrão o postgres não retorna o registro inserido, então usamos o método `returning` para obter os dados do novo registro
-    const result = await db.insert(schema.rooms).values({ name, description }).returning();
+      const result = await db
+        .insert(schema.rooms)
+        .values({
+          name,
+          description,
+        })
+        .returning()
 
-    const insertedRoom = result[0];
+      const insertedRoom = result[0]
 
-    if (!insertedRoom) {
-      throw new Error('Failed to create new room');
+      if (!insertedRoom) {
+        throw new Error('Failed to create new room.')
+      }
+
+      return reply.status(201).send({ roomId: insertedRoom.id })
     }
-
-    return reply.status(201).send({
-      roomId: insertedRoom.id
-    })
-  });
+  )
 }
