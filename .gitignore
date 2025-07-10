@@ -1,5 +1,6 @@
 # Node.js
 node_modules/
+package-lock.json
 
 # Logs
 logs
@@ -12,6 +13,9 @@ logs
 *.pid
 *.seed
 *.pid.lock
+
+# Migrations metadata
+/src/db/migrations/meta/
 
 # Optional npm cache directory
 .npm
