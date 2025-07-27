@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "tsc",
+    "build": "esbuild src/server.ts --bundle --platform=node --outfile=dist/server.js --format=esm --external:node:* --external:@fastify/* --external:fastify --external:zod --external:drizzle-orm --external:postgres --external:@google/genai",
     "start": "node --no-warnings dist/server.js",
     "dev": "node --env-file .env --experimental-strip-types --no-warnings --watch src/server.ts",
     "db:generate": "drizzle-kit generate",
@@ -20,6 +20,8 @@
     "@types/node": "24.0.8",
     "drizzle-kit": "0.31.4",
     "drizzle-seed": "0.3.1",
+    "esbuild": "^0.25.8",
+    "tsx": "^4.20.3",
     "typescript": "5.8.3",
     "ultracite": "5.0.27"
   },
